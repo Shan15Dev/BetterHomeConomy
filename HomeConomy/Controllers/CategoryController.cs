@@ -18,7 +18,7 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<CategoryModel>>> GetAllCategories()
     {
-        return Ok(await _dataContext.Categories.ToListAsync());
+        return Ok(await _dataContext.Category.ToListAsync());
     }
 
 }
