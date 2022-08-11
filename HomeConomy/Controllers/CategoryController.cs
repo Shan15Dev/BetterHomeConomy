@@ -9,7 +9,7 @@ namespace HomeConomy.Controllers;
 public class CategoryController : ControllerBase
 {
     private readonly DataContext _dataContext;
-    
+
     public CategoryController(DataContext dataContext)
     {
         _dataContext = dataContext;
@@ -21,4 +21,25 @@ public class CategoryController : ControllerBase
         return Ok(await _dataContext.Category.ToListAsync());
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<List<CategoryModel>>> GetById(int id)
+    {
+        var result = await _dataContext.Category.FindAsync(id);
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<List<CategoryModel>>> CreateCategory(CategoryModel category)
+    {
+        _dataContext.Category.Add(category);
+        await _dataContext.SaveChangesAsync();
+
+        return Ok(await _dataContext.Category.ToListAsync());
+    }
+    
 }
