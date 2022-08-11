@@ -41,5 +41,26 @@ public class CategoryController : ControllerBase
 
         return Ok(await _dataContext.Category.ToListAsync());
     }
-    
+
+    [HttpPut]
+    public async Task<ActionResult<List<CategoryModel>>> UpdateCategory(CategoryModel category)
+    {
+        _dataContext.Category.Update(category);
+        await _dataContext.SaveChangesAsync();
+
+        return Ok(await _dataContext.Category.ToListAsync());
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<List<CategoryModel>>> DeleteCategory(int id)
+    {
+        var dbCategory = await _dataContext.Category.FindAsync(id);
+        if (dbCategory == null)
+            return BadRequest("Category not found");
+
+        _dataContext.Category.Remove(dbCategory);
+        await _dataContext.SaveChangesAsync();
+
+        return Ok(await _dataContext.Category.ToListAsync());
+    }
 }
