@@ -8,13 +8,13 @@ public class DataContext : DbContext
     {
     }
 
+    public DbSet<CategoryModel> Category { get; set; }
+    public DbSet<ExpenseModel> Expense { get; set; }
+    public DbSet<RoleModel> Role { get; set; }
+    public DbSet<UserModel> User { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
     }
-
-    public DbSet<CategoryModel> Categories { get; set; }
-    public DbSet<ExpenseModel> Expenses { get; set; }
-    public DbSet<RoleModel> Roles { get; set; }
-    public DbSet<UserModel> Users { get; set; }
 }
